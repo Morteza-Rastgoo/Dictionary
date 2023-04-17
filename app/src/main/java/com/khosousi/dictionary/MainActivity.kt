@@ -29,8 +29,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Blue
-import androidx.compose.ui.graphics.Color.Companion.Cyan
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,7 +40,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.khosousi.dictionary.feature.search.presentation.MeaningItem
 import com.khosousi.dictionary.feature.search.presentation.SearchViewModel
 import com.khosousi.dictionary.ui.theme.MyApplicationTheme
-import com.khosousi.dictionary.ui.theme.Purple40
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -111,7 +110,7 @@ class MainActivity : ComponentActivity() {
                                         style = TextStyle(
                                             fontSize = 14.sp,
                                             brush = Brush.linearGradient(
-                                                colors = listOf(Purple40, Cyan, Blue)
+                                                colors = listOf(Black, Blue)
                                             )
                                         )
                                     )

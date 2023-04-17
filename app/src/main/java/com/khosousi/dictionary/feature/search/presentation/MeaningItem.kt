@@ -41,23 +41,25 @@ fun MeaningItem(
             )
             Spacer(modifier = Modifier.size(10.dp))
         }
-        Text(
-            meaning.definitions?.firstOrNull()?.definition
-                ?: "",
-            style = TextStyle(
-                fontSize = 20.sp,
-                brush = Brush.linearGradient(
-                    colors = listOf(Color.Cyan, Color.Blue, Purple40)
+        meaning.definitions?.mapIndexed { index, it ->
+            Text(
+                ("${index + 1}. " + it?.definition),
+                style = TextStyle(
+                    fontSize = 16.sp,
+                    brush = Brush.linearGradient(
+                        colors = listOf(Color.Blue, Purple40, Color.Cyan)
+                    )
                 )
             )
-        )
-        Text(
-            meaning.definitions?.firstOrNull()?.example
-                ?: "",
-            style = TextStyle(
-                fontSize = 14.sp,
+            Text(
+                it?.example
+                    ?: "",
+                style = TextStyle(
+                    fontSize = 14.sp,
+                )
             )
-        )
+        }
+
     }
 
 
