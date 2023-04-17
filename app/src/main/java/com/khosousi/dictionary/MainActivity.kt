@@ -8,6 +8,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.graphics.Color.Companion.Cyan
@@ -88,10 +91,13 @@ class MainActivity : ComponentActivity() {
                             TextField(
                                 value = viewModel.searchQuery.value,
                                 onValueChange = viewModel::onSearch,
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .shadow(20.dp),
                                 placeholder = {
                                     Text("Search...")
-                                }
+                                }, singleLine = true
+
                             )
                             Spacer(modifier = Modifier.size(16.dp))
                             LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -100,16 +106,49 @@ class MainActivity : ComponentActivity() {
                                     if (i > 0) {
                                         Spacer(modifier = Modifier.size(10.dp))
                                     }
-                                    Text(
-                                        wordInfo.meanings?.first()?.definitions?.first()?.definition
-                                            ?: "",
-                                        style = TextStyle(
-                                            fontSize = 15.sp,
-                                            brush = Brush.linearGradient(
-                                                colors = listOf(Cyan, Blue, Purple40)
+                                    Column(
+                                        modifier = Modifier
+                                    ) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Text(
+                                                wordInfo.meanings?.firstOrNull()?.partOfSpeech
+                                                    ?: "",
+                                                style = TextStyle(
+                                                    fontSize = 20.sp,
+                                                )
+                                            )
+                                            Spacer(modifier = Modifier.size(10.dp))
+                                            Text(
+                                                wordInfo.phonetic
+                                                    ?: "",
+                                                style = TextStyle(
+                                                    fontSize = 14.sp,
+                                                    brush = Brush.linearGradient(
+                                                        colors = listOf(Purple40, Cyan, Blue)
+                                                    )
+                                                )
+                                            )
+                                        }
+                                        Text(
+                                            wordInfo.meanings?.firstOrNull()?.definitions?.firstOrNull()?.definition
+                                                ?: "",
+                                            style = TextStyle(
+                                                fontSize = 20.sp,
+                                                brush = Brush.linearGradient(
+                                                    colors = listOf(Cyan, Blue, Purple40)
+                                                )
                                             )
                                         )
-                                    )
+                                        Text(
+                                            wordInfo.meanings?.firstOrNull()?.definitions?.firstOrNull()?.example
+                                                ?: "",
+                                            style = TextStyle(
+                                                fontSize = 14.sp,
+                                            )
+                                        )
+                                    }
                                 }
                             }
                         }
