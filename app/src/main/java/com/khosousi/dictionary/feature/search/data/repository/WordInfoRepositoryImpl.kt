@@ -7,6 +7,7 @@ import com.khosousi.dictionary.feature.search.domain.repository.WordInfoReposito
 import com.khosousi.dictionary.feature.search.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
 import java.io.IOException
 
 /**
@@ -30,6 +31,17 @@ class WordInfoRepositoryImpl(
             emit(
                 Resource.Error(
                     "Ops! What went wrong?", wordInfos
+                )
+            )
+
+        } catch (e: HttpException) {
+            var message = "Ops! What went wrong?"
+            if (e.code() == 404) {
+                message = "Not found"
+            }
+            emit(
+                Resource.Error(
+                    message, wordInfos
                 )
             )
 
