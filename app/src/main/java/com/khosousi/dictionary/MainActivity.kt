@@ -8,7 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
@@ -39,6 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.khosousi.dictionary.feature.search.presentation.MeaningItem
 import com.khosousi.dictionary.feature.search.presentation.SearchViewModel
 import com.khosousi.dictionary.ui.theme.MyApplicationTheme
 import com.khosousi.dictionary.ui.theme.Purple40
@@ -106,47 +105,20 @@ class MainActivity : ComponentActivity() {
                                     if (i > 0) {
                                         Spacer(modifier = Modifier.size(10.dp))
                                     }
-                                    Column(
-                                        modifier = Modifier
-                                    ) {
-                                        Row(
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Text(
-                                                wordInfo.meanings?.firstOrNull()?.partOfSpeech
-                                                    ?: "",
-                                                style = TextStyle(
-                                                    fontSize = 20.sp,
-                                                )
-                                            )
-                                            Spacer(modifier = Modifier.size(10.dp))
-                                            Text(
-                                                wordInfo.phonetic
-                                                    ?: "",
-                                                style = TextStyle(
-                                                    fontSize = 14.sp,
-                                                    brush = Brush.linearGradient(
-                                                        colors = listOf(Purple40, Cyan, Blue)
-                                                    )
-                                                )
-                                            )
-                                        }
-                                        Text(
-                                            wordInfo.meanings?.firstOrNull()?.definitions?.firstOrNull()?.definition
-                                                ?: "",
-                                            style = TextStyle(
-                                                fontSize = 20.sp,
-                                                brush = Brush.linearGradient(
-                                                    colors = listOf(Cyan, Blue, Purple40)
-                                                )
+                                    Text(
+                                        wordInfo.phonetic
+                                            ?: "",
+                                        style = TextStyle(
+                                            fontSize = 14.sp,
+                                            brush = Brush.linearGradient(
+                                                colors = listOf(Purple40, Cyan, Blue)
                                             )
                                         )
-                                        Text(
-                                            wordInfo.meanings?.firstOrNull()?.definitions?.firstOrNull()?.example
-                                                ?: "",
-                                            style = TextStyle(
-                                                fontSize = 14.sp,
-                                            )
+                                    )
+                                    wordInfo.meanings?.map {
+                                        MeaningItem(
+                                            modifier = Modifier,
+                                            meaning = it
                                         )
                                     }
                                 }
